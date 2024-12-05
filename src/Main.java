@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -35,6 +37,43 @@ public class Main {
 
         Gradebook testBook1 = new Gradebook(data1);
         Gradebook testBook2 = new Gradebook(data2);
+        Scanner scanner = new Scanner(System.in);
 
+        while (true) {
+            System.out.println("\nGradebook Menu:");
+            System.out.println("1. View student info");
+            System.out.println("2. Calculate student average");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Clear buffer
+
+            switch (choice) {
+                case 1: // View student info
+                    System.out.print("Enter student's last name: ");
+                    String lastNameInfo = scanner.nextLine();
+                    testBook1.printStudentInfo(lastNameInfo);
+                    testBook2.printStudentInfo(lastNameInfo);
+                    break;
+
+                case 2: // Calculate student average
+                    System.out.print("Enter student's last name: ");
+                    String lastNameAvg = scanner.nextLine();
+                    double avg = testBook1.findStudentAverage(lastNameAvg);                    if (avg == -1) {
+                        System.out.println("Student not found.");
+                    } else {
+                        System.out.printf("Weighted average for %s: %.2f\n", lastNameAvg, avg);
+                    }
+                    break;
+
+                case 3: // Exit
+                    System.out.println("Exiting program. Goodbye!");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 }
